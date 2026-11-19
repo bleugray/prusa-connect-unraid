@@ -13,11 +13,18 @@
   <Icon>https://raw.githubusercontent.com/prusa3d/prusa-connect/main/frontend/public/icons/icon-512.png</Icon>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <ExtraParams>--restart=unless-stopped --read-only --cap-drop=ALL --security-opt=no-new-privileges</ExtraParams>
-  <Requires>IMPORTANT - FIRST INSTALL: The official Prusa image runs as UID/GID 10001:10001. Unraid normally creates bind-mount folders as 99:100 (mode 755), which causes a permission-denied restart loop. BEFORE clicking Apply: review the actual host paths for /config/config.d, /data, /files, /storage and /tmp. In the Unraid terminal, create those specific directories and chown them to 10001:10001. Example when defaults are unchanged: mkdir -p /mnt/user/appdata/prusa-connect/{config.d,data,files,storage,tmp} ; chown -R 10001:10001 /mnt/user/appdata/prusa-connect/{config.d,data,files,storage,tmp} . If the directories exist already, stop the container first; never chown unrelated appdata. If you already clicked Apply and the container is restarting, stop it, correct the ownership, and start it again. See README for exact steps and custom-path guidance.
+  <Requires>BEFORE CLICKING APPLY: Prusa Connect runs as UID/GID 10001:10001. Unraid-created appdata directories may not be writable by this user. In Unraid Terminal, if you kept the default host paths, run:
 
-FIRST-RUN SETUP: After start, open Docker container logs and find setup_code=XXXX-XXXX-XXXX. Enter this one-time code in the WebUI. We recommend choosing Local Accounts and creating an administrator during the first-run wizard; choosing no sign-in closes initial setup without any local accounts, so adding one later is not straightforward. Select /storage for uploaded print files. Restart the container after completing the wizard. Keep the setup code private.
+APPDATA="/mnt/user/appdata/prusa-connect"
+mkdir -p "$APPDATA"/{config.d,data,storage,files,tmp}
+chown -R 10001:10001 "$APPDATA"/{config.d,data,storage,files,tmp}
+ls -ldn "$APPDATA"/{config.d,data,storage,files,tmp}
 
-PORT: Default host and container port are both 8080/TCP. If 8080 is occupied (for example by qBittorrent), change the Host Port in Unraid, not the container port. No PUID/PGID environment settings are supported. Optional /config/config.yaml is NOT required; if needed later, mount it separately read-only.</Requires>
+If you changed any host paths in the installer, substitute those exact paths. Do not chown your entire appdata share or directories used by other containers. If already restarting with "permission denied", stop this container, fix ownership, then start it. FULL STEP-BY-STEP GUIDE: https://github.com/bleugray/prusa-connect-unraid#installation-step-by-step
+
+FIRST START: Open container Logs, find setup_code=XXXX-XXXX-XXXX, and enter it into the browser wizard. Choose Local Accounts with an administrator for a real installation; selecting no sign-in makes adding users afterward difficult. Choose /storage for local files and restart after setup. Keep the setup code private.
+
+PORT: The default WebUI/API container port is 8080. If occupied on Unraid, change only the Host Port. The base /config/config.yaml file is optional; the wizard works without it.</Requires>
   <Config Name="WebUI / API / Printer Port" Target="8080" Default="8080" Mode="tcp" Description="Host TCP port for the web interface, REST API, and printer connections; container port is 8080." Type="Port" Display="always" Required="true" Mask="false">8080</Config>
   <Config Name="Configuration and Database" Target="/config/config.d" Default="/mnt/user/appdata/prusa-connect/config.d" Mode="rw" Description="Writable first-run setup, authentication database, resource overlay and history. REQUIRED: Create this host directory and chown it to UID/GID 10001:10001 BEFORE clicking Apply. See Additional Requirements." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/prusa-connect/config.d</Config>
   <Config Name="Data" Target="/data" Default="/mnt/user/appdata/prusa-connect/data" Mode="rw" Description="Persistent application and extension data. Host directory must be writable by UID/GID 10001:10001." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/prusa-connect/data</Config>
