@@ -36,14 +36,14 @@ An explicit `/config/config.yaml` is optional on first launch; if supplied, it m
 
 | Setting | Value |
 |---|---|
-| Repository | `ghcr.io/prusa3d/prusa-connect:latest` |
+| Repository | `ghcr.io/prusa3d/prusa-connect:0.1.0-beta.1` |
 | Host port | `8080` (user-configurable) |
 | Container port | `8080/tcp` |
 | Network | Bridge |
 | Runtime permissions | Non-root; read-only filesystem; drop all capabilities; no new privileges |
 | Persistent paths | `/config`, `/data`, `/files`, `/storage`, `/tmp` |
 
-The template tracks Prusa's latest published release. Unraid checks for updated images and offers updates from the Docker tab; updates are not installed automatically by this template. To use a prerelease, change the Repository field to its exact version-specific tag. For predictable production upgrades, users may instead pin a specific release.
+**Image tag note:** Prusa does not publish a `latest` tag for prereleases, and the first available published image is currently `0.1.0-beta.1`. This temporary pin ensures fresh installations work. When Prusa publishes its first stable release, the template will switch to `ghcr.io/prusa3d/prusa-connect:latest`. After that, Unraid can detect newer official images and offer updates from the Docker tab. Users can manually select an exact prerelease version in the Repository field.
 
 ## Support
 
