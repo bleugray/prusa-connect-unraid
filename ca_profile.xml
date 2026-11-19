@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommunityApplications>
+  <Profile>Community-maintained Unraid Docker application templates. This repository currently provides Prusa Connect Local, using the official Prusa Research container image. This template is independently maintained by bleugray and is not an official Prusa Research publication. For template-specific problems, open a GitHub issue.</Profile>
+  <Icon>https://raw.githubusercontent.com/prusa3d/prusa-connect/main/frontend/public/icons/icon-512.png</Icon>
+  <WebPage>https://github.com/bleugray/prusa-connect-unraid</WebPage>
+  <Forum>https://github.com/bleugray/prusa-connect-unraid/issues</Forum>
+</CommunityApplications>
