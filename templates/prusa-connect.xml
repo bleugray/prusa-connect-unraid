@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Container version="2">
   <Name>Prusa-Connect</Name>
-  <Repository>ghcr.io/prusa3d/prusa-connect:0.1.0-beta.1</Repository>
+  <Repository>ghcr.io/prusa3d/prusa-connect:latest</Repository>
   <Registry>https://github.com/prusa3d/prusa-connect/pkgs/container/prusa-connect</Registry>
   <Network>bridge</Network>
   <Shell>sh</Shell>
