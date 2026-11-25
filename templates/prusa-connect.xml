@@ -32,5 +32,13 @@ PORT: The default WebUI/API container port is 8080. If occupied on Unraid, chang
   <Config Name="Storage" Target="/storage" Default="/mnt/user/appdata/prusa-connect/storage" Mode="rw" Description="Uploaded print files and local storage. Host directory must be writable by UID/GID 10001:10001." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/prusa-connect/storage</Config>
   <Config Name="Temporary Files" Target="/tmp" Default="/mnt/user/appdata/prusa-connect/tmp" Mode="rw" Description="Writable scratch space required by the read-only root filesystem; host directory must be writable by UID/GID 10001:10001." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/prusa-connect/tmp</Config>
   <TemplateURL>https://raw.githubusercontent.com/bleugray/prusa-connect-unraid/main/templates/prusa-connect.xml</TemplateURL>
+  <Changes>2026-11-25: Updated official Prusa Connect image to v0.1.0-beta.2.
+- Upstream security fixes, interface improvements, and updated printer controls.
+- Existing installations pinned to beta.1 must manually change their Repository field to beta.2.
+
+2026-11-18: Initial Unraid Community Apps release.
+- Official Prusa Research Docker image.
+- Persistent appdata mappings and first-run installation instructions.
+  </Changes>
   <Beta>true</Beta>
 </Container>
